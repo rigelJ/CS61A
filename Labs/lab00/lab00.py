@@ -5,4 +5,5 @@ def twenty_nineteen():
     >>> twenty_nineteen()
     2019
     """
-    return ______
+    
+    return (2*1000) + 20 -1
