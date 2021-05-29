@@ -1,4 +1,5 @@
 """Lab 1: Expressions and Control Structures"""
+from math import floor
 
 def both_positive(x, y):
     """Returns True if both x and y are positive.
@@ -8,7 +9,7 @@ def both_positive(x, y):
     >>> both_positive(1, 1)
     True
     """
-    return x and y > 0 # You can replace this line!
+    return not(1-x) and not(1-y) # You can replace this line!
 
 def sum_digits(n):
     """Sum all the digits of n.
@@ -23,4 +24,9 @@ def sum_digits(n):
     >>> x
     6
     """
-    "*** YOUR CODE HERE ***"
+    sum1 = 0
+    while n//10 != 0:
+        sum1 = sum1 + (n%10) 
+        n = floor(n/10)
+    sum1 = sum1 + (n%10)
+    return sum1
