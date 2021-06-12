@@ -21,7 +21,19 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    
+    sums = 0
+    flag = 0
+    for i in range(num_rolls):
+        result = dice()
+        if result == 1:
+           flag = 1 
+           continue
+        sums =sums + result
+    if flag:
+        return 1
+    else:
+        return sums
+
     # END PROBLEM 1
 
 
@@ -32,7 +44,10 @@ def free_bacon(score):
     """
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    if score%10 == score:
+        return 10
+    else:
+        return 10 - min(int(str(score)[0]),int(str(score)[1]))
     # END PROBLEM 2
 
 
@@ -50,7 +65,11 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0 :
+        score = free_bacon(opponent_score)
+    else:
+        score = roll_dice(num_rolls,dice)
+    return score
     # END PROBLEM 3
 
 
@@ -59,7 +78,10 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    if str(player_score)[0] == str(opponent_score)[-1]:
+        return True
+    else:
+        return False
     # END PROBLEM 4
 
 
@@ -98,13 +120,63 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     """
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    flag = 0
+
+    ''' normal
+    while True:
+        dice0 = strategy0(score0,score1)
+        add0 = take_turn(dice0,score1,dice)
+        score0=score0+add0
+        if(is_swap(score0,score1)):
+            score0,score1=score1,score0
+        if score0 >=goal or score1>=goal:
+            say = say(score0,score1)
+            return score0,score1
+        say = say(score0,score1)
+
+        dice1 = strategy1(score1,score0)
+        add1 = take_turn(dice1,score0,dice)
+        score1=add1+score1
+        if(is_swap(score1,score0)):
+            score0,score1=score1,score0
+        if score1>=goal or score0>=goal:
+            say = say(score0,score1)
+            return score0,score1
+        say = say(score0,score1)
+    '''
+    
+    # simplified
+    get_scores = lambda:(score0,score1)
+    get_strategy = lambda:(strategy0,strategy1)
+
+    while max(get_scores()) < goal:
+        opponent = other(player)     #1/0 0/1
+        strategy = get_strategy()[player]
+        pla = get_scores()[player]
+        opo = get_scores()[opponent]
+        score = take_turn(strategy(pla,opo),opo,dice)
+        if player == 0:
+            score0 +=score
+        else:
+            score1 +=score
+        if(is_swap(get_scores()[player],get_scores()[opponent])):
+            score0,score1=score1,score0
+        new = get_scores()
+        say = say(score0,score1)
+        player = opponent
+
+
+    return get_scores()[0],get_scores()[1]
+    
+
+        
+
+
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
     # END PROBLEM 6
-    return score0, score1
 
 
 #######################
@@ -188,7 +260,17 @@ def announce_highest(who, previous_high=0, previous_score=0):
     """
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    def say(score0, score1):
+        current_score = (score0,score1)[who]
+        gain = current_score - previous_score
+        new_high = previous_high
+        if gain > previous_high:
+            print(
+                f"{gain} point(s)! That's the biggest gain yet for Player {who}")
+            new_high = gain 
+        return announce_highest(who,new_high,current_score)
+
+    return say
     # END PROBLEM 7
 
 
@@ -227,7 +309,13 @@ def make_averaged(fn, num_samples=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def averages(*arg):
+        a = 0
+        for i in range(num_samples):
+            a = a + fn(*arg)
+        average = a/num_samples
+        return average
+    return averages
     # END PROBLEM 8
 
 
@@ -241,7 +329,17 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    lists =[]
+    average = make_averaged(roll_dice,num_samples)
+    lists = [make_averaged(roll_dice,num_samples)
+(time,dice) for time in range(1,11)]
+    '''
+    for times in range(1,11):
+        a = average(times,dice)
+        lists.append(a)
+    '''
+    #print(lists)
+    return lists.index(max(lists))+1
     # END PROBLEM 9
 
 
