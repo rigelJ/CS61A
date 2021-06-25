@@ -1,0 +1,164 @@
+Text File questions
+
+level 2
+
+01 get lines from txt and get i line from txt
+
+02 analysis per speed user typed str and get the correct percent of typed str
+
+03 translate the paragraph into pig latin,pig latin is a function return the changing word
+
+level 3  modified word automaticaly
+
+1.get the score of the diffrents between typed word and word in wordlist
+
+2.how to get the score?
+   1.return the number of changing word as score
+   2.return the step from typed word to wordlist as score
+   3.accurate the step and add the distance between swap
+   4.make memory and make it effition
+   
+
+Problem 01: Sample Paragraphs
+
+
+
+- Which functions from utils.py will you use for interacting with the sample_paragraphs.txt file?
+
+open readlines
+
+
+Problem 02: Words Per Minute
+
+
+
+- Given a long string that contains a full paragraph (e.g. "This is my name. It is Bob. Also, I have a cat named Troy."), what function will you use to separate a string containing a full paragraph into its individual words?
+   
+split 
+
+
+- What is the calculation you will use in order to measure Words Per Minute speed? (You can describe your formula.)
+- What is the calculation you will use in order to measure accuracy? (You can describe your formula.)
+
+def analyze(sample_paragraphs,typed_string,start_time,end_time):
+      
+    def speed(typed_string,start_time,end_time):
+          return ((len(typed_string)/5)/((end_time-start_time)/60)
+    def correct(typed_string,sample_paragraphs):
+          type = typed_string.split(' ')
+          samp = sample_paragraphs.split(' ')
+          if len(type) == len(samp):
+                count = 1
+                for i in range(len_type):
+                     if type[i] == samp[i]:
+          elif  <:
+
+          else:
+          
+          return 
+
+Problem 03: Pig Latin
+
+
+
+- How will you identify that a word starts with a consonant cluster? 
+
+identify the first letter and then the next
+
+maybe recusion?
+
+Problem 04: Autocorrect Skeleton
+
+
+
+- How will you calculate the difference scores between the user input string and each valid word, and determine which difference is the smallest?
+
+if user_input is in word_list:
+     return user_input
+
+else:
+     d = [i,j for i,j in zip(word_list,[score_function(user_input,word) for word in word_list ]
+     return min(d.items(), key=lambda x: x[1])
+a    *  or use key_of_min_value function
+
+Problem 05: Score Function 
+
+
+- What will your base case be?
+
+if left_letter == '':
+    return 0
+
+
+- Identify two example inputs which fall into different recursive calls. In each of these cases, what recursive call should be made?
+
+if left_letter == ' ':
+    xx
+else:
+    return swap(left_letter[1:],right[1:])
+
+
+Problem 06: 
+
+
+
+- What does each of the recursive calls in the skeleton represent? Are there additional cases which don't fit into the three already given?
+
+no
+
+
+- If we called score_function("bot", "boot"), list a series of successive recursive calls we would go through to reach the base case. For example, if we called score_function("add", "aadd"), one step could be score_function("add", "aadd") -> score_function("add", "add").
+ 
+bot-boot
+
+add-aadd
+
+
+- Based on your above list of recursive calls, classify each step as an add, remove, a swap, or something else.
+
+
+def add():
+
+def remove():
+
+def swap():
+
+
+- Why would your function choose this sequence of recursive calls over another?
+
+wait
+
+
+Problem 07: Accuracy
+
+
+
+- In your own words, why do we need to improve the accuracy of our existing score_function? In other words, what is the problem that we are trying to solve?
+
+
+
+
+- How can you adapt your score function from the previous problem to take into account key distances?
+ (Hint: which recursive call will need to be modified?)
+
+
+
+
+
+Problem 08: Efficiency
+
+
+
+- What data structure will you use to store all of the differences that score_function has already calculated?
+
+
+
+
+
+- What types of values will this data structure contain?
+
+
+
+
+
+- Using the data structure you described, given a pair of words, how will you check whether score_function has already been called on that pair of words? If so, how will you access the already calculated difference?
