@@ -11,3 +11,8 @@ def pressure(v, t, n):
         """
         k = 1.38e-23 # 玻尔兹曼常数
         return n * k * t / v
+        
+def a():
+    for i  in []:
+        print(i)
+    print(1)
