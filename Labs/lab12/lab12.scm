@@ -1,10 +1,11 @@
 (define (repeatedly-cube n x)
     (if (zero? n)
         x
-        (let
-            (_________________________)
-            (* y y y))))
-
+        (let ((y x))
+	  (repeatedly-cube (- n 1) (* y y y)))))
 
 (define-macro (def func bindings body)
-    'YOUR-CODE-HERE)
+    `(define ,(cons func bindings) ,body))
+
+
+
