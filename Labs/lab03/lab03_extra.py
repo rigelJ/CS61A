@@ -1,4 +1,4 @@
-""" Optional problems for Lab 3 """
+
 
 def is_prime(n):
     """Returns True if n is a prime number and False otherwise.
